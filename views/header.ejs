@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>boke</title>
+	<link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+<body>
+
+<header>
+	<h1><%= title %></h1>
+</header>
+	
+<nav>
+	<span><a href="/" title="主页">Home</a></span>
+	<% if(user) { %>
+		<span><a href="/login" title="发表">updown</a></span>
+		<span><a href="/login" title="登出">outLogin</a></span>
+	<% } else { %>
+		<span><a href="/login" title="登录">Login</a></span>
+		<span><a href="/reg" title="注册">Register</a></span>
+	<% } %>
+</nav>
+
+<article>
+	<% if(success) { %>
+		<div><%- success %></div>
+	<% } %>
+	<% if(error) { %>
+		<div><%- error %></div>
+	<% } %>
+</body>
+</html>
