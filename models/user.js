@@ -55,14 +55,14 @@ User.get = function(name, callback) {
 				return callback(err); //错误，放回err信息
 			}
 			//查找用户用（name键）值为name一个文档
-			collection.findOne(user, {
+			collection.findOne({
 				name: name
 			}, function(err, user) {
 				mongodb.close();
 				if(err) {
 					return callback(err); //错误，放回err信息
 				}
-				callback(null, user[0]); //成功！err为null， 并返回存储后的用户文档
+				callback(null, user); //成功！err为null， 并返回存储后的用户文档
 			});
 		});
 	});
