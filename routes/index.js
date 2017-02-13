@@ -74,7 +74,7 @@ router.get('/login', function(req, res) {
 	res.render('login', {title: '登录'});
 });
 router.post('/login', function(req, res) {
-
+	//生成密码的md5值
 });
 router.get('/post', function(req, res) {
 	res.render('/post', {title: '发表'});
