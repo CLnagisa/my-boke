@@ -23,6 +23,8 @@ router.get('/', function(req, res) {
 		error: req.flash('error').toString()
 	});
 });
+
+router.get('/reg', checkNotLogin);             //已登录了就不能再访问注册页
 router.get('/reg', function(req, res) {
 	res.render('reg', {
 		title: '注册',
@@ -31,6 +33,8 @@ router.get('/reg', function(req, res) {
 		error: req.flash('error').toString()
 	});
 });
+
+router.post('/reg', checkNotLogin);           //已登录了就不能再访问注册页
 router.post('/reg', function(req, res) {
 	var name = req.body.name,
 		password = req.body.password,
@@ -70,20 +74,76 @@ router.post('/reg', function(req, res) {
 		});
 	});
 });
+
+router.get('/login', checkNotLogin);         //已登录了就不能再访问登录页
 router.get('/login', function(req, res) {
-	res.render('login', {title: '登录'});
+	res.render('login', {
+		title: '登录',
+		user: req.session.user,
+		success: req.flash('success').toString(),
+        error: req.flash('error').toString() 
+	});
 });
+
+router.post('/login', checkNotLogin);        //已登录了就不能再访问注册页
 router.post('/login', function(req, res) {
 	//生成密码的md5值
+	var md5 = crypto.createHash('md5'),
+		password = md5.update(req.body.password).digest('hex');
+	//检查用户是否存在
+	User.get(req.body.name, function(err, user) {
+		if(!user) {
+			req.flash('error', '用户不存在！');
+			return res.redirect('/login');   //用户不存在则跳转到登录页
+		}
+		//检查密码是否一致
+		if(user.password != password) {
+			req.flash('error', '密码错误！');
+			return res.redirect('/login');   //密码错误则跳回登录页
+		}
+		//用户名密码都匹配后，降用户信息存入session
+		req.session.user = user;
+		req.flash('success', '登录成功！');
+		res.redirect('/');  //登录成功后跳回主页
+	})
 });
+
+router.get('/post', checkLogin);           //未登录了就不能再访问发表页
 router.get('/post', function(req, res) {
-	res.render('/post', {title: '发表'});
+	res.render('/post', {
+		title: '发表',
+		user: req.session.user,
+		success: req.flash('success').toString(),
+		error: req.flash('error').toString()
+	});
 });
+
+router.post('/post', checkLogin);      //未登录了就不能再访问发表页
 router.post('/post', function(req, res) {
 
 });
-router.get('/logout', function(req, res) {
 
+router.get('/logout', checkLogin);    //未登录了就不能再访问登出
+router.get('/logout', function(req, res) {
+	req.session.user = null;
+	req.flash('success', '登出成功！');
+	res.redirect('/');  //登出成功后后跳转到主页
 });
 
 module.exports = router;
+
+function checkLogin(req, res, next) {  //检查没登陆情况下
+	if(!req.session.user) {
+		req.flash('error', '未登录!');
+		res.redirect('/login');    //返回登录页
+	}
+	next();   //转移控制权，中间件，进入到下一个路由
+}
+
+function checkNotLogin(req, res, next) {    //检查已登录情况下
+	if(req.session.user) {
+		req.flash('error', '已登录！');
+		res.redirect('back'); //返回之前的页面
+	}
+	next();
+}
