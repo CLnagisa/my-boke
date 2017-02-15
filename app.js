@@ -30,7 +30,7 @@ app.use(session({
 		/*db: settings.db,
 		host: settings.host,
 		port: settings.port*/
-		url: 'mongodb://localhost/boke'
+		url: 'mongodb://localhost/bole'
 	})
 }));
 

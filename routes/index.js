@@ -13,14 +13,21 @@ module.exports = router;
 var express = require('express');
 var router = express.Router();
 var crypto = require('crypto'),          //用来加密密码
-    User = require('../models/user.js');
+    User = require('../models/user.js'),
+    Post = require('../models/post.js');
 
 router.get('/', function(req, res) {
-	res.render('index', {
-		title: '主页',
-		user: req.session.user,
-		success: req.flash('success').toString(),
-		error: req.flash('error').toString()
+	Post.get(null, function (err, posts) {
+		if(err) {
+			posts = [];
+		}
+		res.render('index', {
+			title: '主页',
+			user: req.session.user,
+			posts: posts,
+			success: req.flash('success').toString(),
+			error: req.flash('error').toString()
+		});
 	});
 });
 
@@ -110,7 +117,7 @@ router.post('/login', function(req, res) {
 
 router.get('/post', checkLogin);           //未登录了就不能再访问发表页
 router.get('/post', function(req, res) {
-	res.render('/post', {
+	res.render('post', {
 		title: '发表',
 		user: req.session.user,
 		success: req.flash('success').toString(),
@@ -120,7 +127,16 @@ router.get('/post', function(req, res) {
 
 router.post('/post', checkLogin);      //未登录了就不能再访问发表页
 router.post('/post', function(req, res) {
-
+	var currentUser = req.session.user,
+		post = new Post(currentUser.name, req.body.title, req.body.post);
+	post.save(function (err) {
+		if(err) {
+			req.flash('error', err);
+			return res.redirect('/');
+		}
+		req.flash('success', '发布成功！');
+		res.redirect('/');
+	});
 });
 
 router.get('/logout', checkLogin);    //未登录了就不能再访问登出
