@@ -19,6 +19,15 @@ var MongoStore = require('connect-mongo')(session);
 
 var app = express();          //生成一个express实例app
 
+/*
+	这个方法在multer1.0.0一下的版本才可以适用
+var multer = require('multer');
+app.use(multer({
+	dest: './public/images',                    //路径
+	rename: function(fieldname, filename) {     //上传后的文件名
+		return filename;
+	}
+}));*/
 
 app.use(session({
 	secret: settings.cookieSecret,
