@@ -22,11 +22,12 @@ Post.prototype.save = function(callback) {
 	};
 	//要存入数据库的文档
 	var post = {
-		name: this.name,
-		time: time, 
-		title: this.title,
-		post: this.post
-	};
+        time: time,
+        name: this.name,
+        post: this.post,
+        title: this.title,
+        comments: []
+    };
 	//打开数据库
 	mongodb.open(function(err, db) {
 		if(err) {
@@ -112,7 +113,13 @@ Post.getOne = function(name, day, title, callback) {
 					return callback(err);
 				}
 				//解析markdown为html
-				doc.post = markdown.toHTML(doc.post);
+				//doc.post = markdown.toHTML(doc.post);
+				if(doc) {
+					doc.post = markdown.toHTML(doc.post);
+					doc.comments.forEach(function(comment) {
+						comment.content = markdown.toHTML(comment.content);
+					})
+				}
 				callback(null, doc);  //返回查询的一篇文章
 			});
 		});
