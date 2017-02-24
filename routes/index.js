@@ -246,6 +246,16 @@ router.get('/tags/:tag', function(req, res) {
 	});
 });
 
+//链接页
+router.get('/links', function(req, res) {
+	res.render('links', {
+		title: '友情链接',
+		user: req.session.user,
+		success: req.flash('success').toString(),
+		error: req.flash('error').toString()
+	});
+});
+
 //搜索查找页
 router.get('/search', function(req, res) {
 	Post.search(req.query.keyword, function(err, posts) {
@@ -387,6 +397,10 @@ router.get('/remove/:name/:day/:title', function(req, res) {
 });
 
 module.exports = router;
+
+router.use(function(req, res) {   //404页面
+	res.render("404");
+});
 
 function checkLogin(req, res, next) {  //检查没登陆情况下
 	if(!req.session.user) {
