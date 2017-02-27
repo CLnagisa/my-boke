@@ -396,6 +396,38 @@ router.get('/remove/:name/:day/:title', function(req, res) {
 	});
 });
 
+//转载文章
+router.get('/reprint/:name/:day/:title', checkLogin);
+router.get('/reprint/:name/:day/:title', function(req, res) {
+	Post.edit(req.params.name, req.params.day, req.params.title, function(err, post) {
+		if(err) {
+			req.flash('error', err);
+			return res.redirect(back);
+		}
+		var currentUser = req.session.user,
+			reprint_from = {
+				name: post.name,
+				day: post.time.day,
+				title: post.title
+			},
+			reprint_to = {
+				name: currentUser.name,
+				head: currentUser.head
+			};
+		Post.reprint(reprint_from, reprint_to, function(err, post) {
+			if(err) {
+				req.flash('error', err);
+				return res.redirect('back');
+			}
+			req.flash('success', '转载成功！');
+			var url = encodeURI('/u/' + req.params.name + '/' + req.params.day + '/' + req.params.title);
+			//跳转到转载后的文章页面
+			res.redirect(url);
+		});
+
+	});
+});
+
 module.exports = router;
 
 router.use(function(req, res) {   //404页面
