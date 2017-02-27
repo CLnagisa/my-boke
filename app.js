@@ -17,7 +17,9 @@ var flash = require('connect-flash');
 var session = require('express-session');
 var MongoStore = require('connect-mongo')(session);
 
-
+var fs = require('fs');     //文件写入和日志
+var accessLog = fs.createWriteStream('access.log', {flags: 'a'});
+var errorLog = fs.createWriteStream('error.log', {flags: 'a'});
 
 var app = express();          //生成一个express实例app
 
@@ -54,11 +56,16 @@ app.use(flash());
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
-
+app.use(logger({stream: accessLog}));    //日志
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));    //设置public文件夹为存放静态文件的目录
+app.use(function(err, req, res, next) {
+	var meta = '[' + new Date() + ']' + req.url + 'n';
+	errorLog.write(meta + err.stack + '\n');
+	next();
+});
 
 
 
