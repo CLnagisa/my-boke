@@ -1,6 +1,7 @@
 body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background-color: #eee;
 }
 
 a {
@@ -10,14 +11,6 @@ a {
 * {
 	margin: 0;
 	padding: 0;
-}
-
-body {
-	width: 600px;
-	margin: 2em auto;
-	padding: 0 2em;
-	font-size: 14px;
-	font-family: "Microsoft YaHei";
 }
 
 p {
@@ -30,29 +23,6 @@ header {
 	border-bottom: 1px solid #ccc;
 }
 
-nav {
-	float: left;
-	font-family: "Microsoft YaHei";
-	font-size: 1.1em;
-	text-transform: uppercase;
-	margin-left: -12em;
-	width: 9em;
-	text-align: right;
-}
-
-nav a {
-	display: block;
-	text-decoration: none;
-	padding: .7em 1em;
-	color: #000;
-}
-
-nav a:hover {
-	background-color: #ff0000;
-	color: #f9f9f9;
-	-webkit-transition: color ./2s linear;
-}
-
 article {
 	font-size: 16px; 
 	padding-top: .5em;
@@ -61,6 +31,13 @@ article {
 article a:hover {
 	color: #333;
 	text-decoration: underline;
+}
+
+.main {
+	border: 1px solid rgba(100, 100, 100, .5);
+	border-radius: 5px;
+	position: relative;
+	background-color: #fff;
 }
 
 .info {
@@ -141,10 +118,29 @@ article a:hover {
 	-webkit.transition: color .2s linear;
 }
 
-.search {
-	border: 0;
-	width: 6em;
+.search-i {
+	border: 1px solid rgba(100, 100, 100, .5);
+	border-radius: 5px;
+	width: 10em;
 	text-align: center;
 	font-size: 1em;
-	margin: 0.5em 0;
+}
+
+.search {
+	position: absolute;
+	right: 20px;
+	top: 40px;
+}
+
+.information {
+	text-align: center;
+}
+
+.notice {
+	width: 220px;
+	list-style-type: none;
+	border: 1px solid #eee;
+	padding: 10px;
+	border-radius: 2px;
+	border-top-right-radius: 40px;
 }

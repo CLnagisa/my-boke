@@ -31,8 +31,6 @@ var upload = multer({
 	storage: storage
 });
 
-
-
 router.get('/', function(req, res) {
 	//判断是否是第一页，并把请求的页数转换成number类型
 	var page = req.query.p ? parseInt(req.query.p) : 1;

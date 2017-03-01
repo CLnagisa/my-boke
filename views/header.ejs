@@ -3,39 +3,69 @@
 <head>
 	<meta charset="UTF-8">
 	<title>boke</title>
+	<link rel="stylesheet" href="/stylesheets/bootstrap.css">
+	<link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
 	<link rel="stylesheet" href="/stylesheets/style.css">
+	<script type="text/javascript" src="/js/js.js"></script>
+	<script src="/kindeditor/kindeditor-min.js" charset="utf-8"></script>
+	<script src="/kindeditor/lang/zh_CN.js" charset="utf-8"></script>
+	<script>
+		var editor;
+		KindEditor.ready(function(k) {
+			window.editor = k.create('textarea', {
+				allowimageUpload: false,
+				items: [
+				'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold', 'italic', 'underline', 'removeformat', '|', 'justifyleft', 'justifycenter', 'justifyright', 'insertorderedlist', 'insertunorderedlist', '|', 'emoticons', 'image', 'link']
+			});
+		});
+	</script>
 </head>
 <body>
+<div class="container main">
+	<span class="search">
+		<form action="search" method="GET">
+			<input type="text" name="keyword" placeholder="SEARCH" class="search-i">
+			<input type="submit" value="搜索">
+		</form>
+	</span>
+	<header>
+		<h1><%= title %></h1>
+	</header>
 
-<header>
-	<h1><%= title %></h1>
-</header>
-	
-<nav>
-	<span><a href="/" title="主页">Home</a></span>
-	<span><a href="archive" title="存档">archive</a></span>
-	<span><a title="标签" href="/tags">tags</a></span>
-	<span><a title="友情链接" href="/links">links</a></span>
-	<% if(user) { %>
-		<span><a title="上传" href="/upload">upload</a></span>
-		<span><a href="/post" title="发表">updown</a></span>
-		<span><a href="/logout" title="登出">outLogin</a></span>
-	<% } else { %>
-		<span><a href="/login" title="登录">Login</a></span>
-		<span><a href="/reg" title="注册">Register</a></span>
-	<% } %>
-	<span><form action="search" method="GET">
-		<input type="text" name="keyword" placeholder="SEARCH" class="search">
-		<input type="submit" value="搜索">
-	</form></span>
-</nav>
+	<nav class="navbar navbar-default">
+		<div class="container-fluid">
+			<div class="navbar-left">
+				<ul class="nav navbar-nav">
+					<li><a href="/" title="Home">主页</a></li>
+					<li><a href="archive" title="archive">存档</a></li>
+					<% if(user) { %>
+						<li><a title="upload" href="/upload">上传</a></li>
+						<li><a href="/post" title="updown">发表</a></li>
+				</ul>
+			</div>
+			<div class="navbar-right">
+				<ul class="nav navbar-nav">
+						<li><a href="/logout" title="outLogin">登出</a></li>
+					<% } else { %>
+			</div>
+			<div class="navbar-right">
+				<ul class="nav navbar-nav">
+						<li><a href="/login" title="Login">登录</a></li>
+						<li><a href="/reg" title="Register">注册</a></li>
+					<% } %>
+				
+				</ul>
+			</div>
+		</div>
+	</nav>
 
-<article>
-	<% if(success) { %>
-		<div><%- success %></div>
-	<% } %>
-	<% if(error) { %>
-		<div><%- error %></div>
-	<% } %>
-</body>
-</html>
+	<article class="row">
+		<div class="col-md-9">
+			<div class="information" id="information">
+				<% if(success) { %>
+					<div><%- success %></div>
+				<% } %>
+				<% if(error) { %>
+					<div><%- error %></div>
+				<% } %>
+			</div>

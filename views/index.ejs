@@ -14,15 +14,17 @@
 			<% } %>
 	</p>
 	<p><%- post.post %></p>
-	<p class="info">阅读：<%= post.pv %> | 
-					评论：<%= post.comments.length %> |
-					转载：
+	<p class="info"><img src="/images/icon_arrow.gif" alt=""> 阅读：<%= post.pv %> | 
+					<img src="/images/icon_comment.gif" alt=""> 评论：<%= post.comments.length %> |
+					<img src="/images/icon_addcomment.gif" alt=""> 转载：
 					<% if(post.reprint_info.reprint_to) { %>
 						<%= post.reprint_info.reprint_to.length %>
 					<% } else { %>
 						<%= 0 %>
 					<% } %>
 					</p>
+					<hr>
 	<% }) %>
 <%- include paging %>
+<%- include notice %>
 <%- include footer %>

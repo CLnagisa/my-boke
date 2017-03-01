@@ -1,0 +1,12 @@
+</div>
+<div class="col-md-2">
+	<h3>最新文章</h3>
+	<ul class="notice">
+		<% var i = 0 %>
+		<% posts.forEach(function(post, index) { %>
+			<% if(i < 6) { %>
+				<% i = i + 1 %>
+			<li><a href="/u/<%= post.name %>/<%= post.time.day %>/<%= post.title %>"><%= post.title %></a></li>
+			<% } %>
+		<% }) %>
+	</ul>
