@@ -180,17 +180,13 @@ router.get('/upload', function(req, res) {
 
 router.post('/upload', checkLogin);
 router.post('/upload', upload.fields([
-		{name: 'file1'},
-		{name: 'file2'},
-		{name: 'file3'},
-		{name: 'file4'},
-		{name: 'file5'}
+		{name: 'imgFile'},
 	]), function(req, res) {
 		for(var i in req.files) {
 			console.log(req.files[i]);
 		}
 		req.flash('success', '文件上传成功！');
-		res.redirect('/upload');
+		res.end('');
 	}
 );
 

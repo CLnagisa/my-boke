@@ -9,10 +9,6 @@ var connection = mysql.createConnection({
 	database: 'node'
 });
 
-
-
-
-
 connection.connect(function(err) {
 	if(err) {
 		console.log('[query] - :' + err );

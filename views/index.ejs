@@ -13,7 +13,9 @@
 			<br><a href="/u/<%= post.reprint_info.reprint_from.name %>/<%= post.reprint_info.reprint_from.day %>/<%= post.reprint_info.reprint_from.title %>">原文链接</a>
 			<% } %>
 	</p>
-	<p><%- post.post %></p>
+	<div class="main-text">
+		<p><%- post.post %></p>
+	</div>
 	<p class="info"><img src="/images/icon_arrow.gif" alt=""> 阅读：<%= post.pv %> | 
 					<img src="/images/icon_comment.gif" alt=""> 评论：<%= post.comments.length %> |
 					<img src="/images/icon_addcomment.gif" alt=""> 转载：

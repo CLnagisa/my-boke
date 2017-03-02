@@ -80,7 +80,7 @@ KindEditor.plugin('image', function(K) {
 			hiddenElements.join(''),
 			'<label style="width:60px;">' + lang.localUrl + '</label>',
 			'<input type="text" name="localUrl" class="ke-input-text" tabindex="-1" style="width:200px;" readonly="true" /> &nbsp;',
-			'<input type="button" class="ke-upload-button" value="' + lang.upload + '" />',
+			'<input tke-button-commonype="button" class="ke-upload-button" value="' + lang.upload + '" />',
 			'</div>',
 			'</form>',
 			'</div>',

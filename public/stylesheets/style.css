@@ -144,3 +144,22 @@ article a:hover {
 	border-radius: 2px;
 	border-top-right-radius: 40px;
 }
+
+.main-text {
+	height: 78px;
+	overflow: hidden;
+}
+
+.main-text a, 
+.main-text h1, 
+.main-text h2, 
+.main-text h3, 
+.main-text h4, 
+.main-text h5, 
+.main-text h6, 
+.main-text p, 
+.main-text span, 
+.main-text ul, 
+.main-text li {
+	font-size: 16px;
+}

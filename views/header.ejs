@@ -12,10 +12,15 @@
 	<script>
 		var editor;
 		KindEditor.ready(function(k) {
-			window.editor = k.create('textarea', {
+			window.editor = k.create('textarea', {   
+				urlType : 'absolute',
+				uploadJson: './upload',
+                allowFileManager: true
+
+			/*  自定义属性
 				allowimageUpload: false,
 				items: [
-				'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold', 'italic', 'underline', 'removeformat', '|', 'justifyleft', 'justifycenter', 'justifyright', 'insertorderedlist', 'insertunorderedlist', '|', 'emoticons', 'image', 'link']
+				'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold', 'italic', 'underline', 'removeformat', '|', 'justifyleft', 'justifycenter', 'justifyright', 'insertorderedlist', 'insertunorderedlist', '|', 'emoticons', 'image', 'link']*/
 			});
 		});
 	</script>
